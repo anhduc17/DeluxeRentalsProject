@@ -44,6 +44,32 @@ class CustomerController extends Controller
         return redirect()->back()->with('success','Customer Information updated successfully'); 
     }
 
+    //INDEX EDIT
+    public function IndexEdit($id){
+        $customerlist = user::find($id);
+        return view('Customer.indexedit',compact('customerlist'));
+    }
+
+    public function EditProcess($id){
+        $customerlist = user::find($id);
+        $customerlist->name = $request -> input('txtcName');
+        $customerlist->dob = $request -> input('txtcDOB');
+        $customerlist->address = $request -> input('txtcAdd');
+        $customerlist->email = $request -> input('txtcMail');
+        $customerlist->phone = $request -> input('txtcPhone');
+        $customerlist->update();
+        
+        return redirect()->back()->with('success','Customer Information updated successfully'); 
+    }
+
+    //INDEX DELETE
+    public function CustomerDelte($id){
+        $customerlist = user::find($id);
+        $customerlist->delete();
+
+        return redirect()->back()->with('status','Car deleted successfully');
+    }
+
     //UPDATE PASSWORD
     public function UpdatePassword($token) {
 
@@ -82,4 +108,6 @@ class CustomerController extends Controller
         $detail = contract_detail::where('ContractNo',$contractno)->get();
         return view ('customer.booking', array('contract' => $contract, 'detail' => $detail, 'customerlist' => $customerlist));
     }
+    
+
 }

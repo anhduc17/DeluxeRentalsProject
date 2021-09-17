@@ -3,10 +3,8 @@
 @section('my content')
 
 <div class="container" style="margin-top: 100px; margin-bottom: 100px">
-<h1 style="text-align: center">My Booking:</h1>
-<br>
-<br>
-<table class="table table-bordered table-hover">  
+
+
     <div class="row">
         <div class="col-md-3 col-sm-3">
             <ul>
@@ -21,6 +19,8 @@
             </ul>
         </div>
         <div class="col-md-6 col-sm-8">
+            <h1 style="text-align: center">My Booking:</h1>
+            <br><br>
             <table class="table table-bordered">
                     <thead class="thead-dark">
                         <tr style="text-align: center">
@@ -50,14 +50,13 @@
                             </tr>     
                             @endforeach
                         @endforeach
-                        
                     </tbody>
             </table>  
         </div>
     </div>
 
     
-</table> 
+
 
 </div>
  

@@ -105,9 +105,15 @@ Route::get('mybooking','CustomerController@myBooking');
 Route::get('customerupdate/{id}','CustomerController@UpdateCustomer');
 Route::post('customerupdate/{id}','CustomerController@UpdateCustomerProcess');
 
-//04. UPDATE PASSWORD - http://localhost:8080/DeluxeRentalsProject/public/customerpasswordupdate/{cid}
+Route::get('customeredit/{id}','CustomerController@IndexEdit');
+Route::post('customeredit/{id}','CustomerController@EditProcess');
+
+//03. UPDATE PASSWORD - http://localhost:8080/DeluxeRentalsProject/public/customerpasswordupdate/{cid}
 Route::get('customerpassupdate/{id}','CustomerController@UpdatePassword');
 Route::post('customerpassupdate/{id}','CustomerController@UpdatePasswordProcess');
+
+//04. DELETE
+Route::get('customerdelete/{id}','CustomerController@CustomerDelte');
 
 
 //----------------Maintenance CRUD---------------------------

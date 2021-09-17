@@ -40,7 +40,7 @@
                     <td>{{ $list -> email }}</td>
                     <td>{{ $list -> phone }}</td>
                     <td>
-                        <a href="{{ url('customerupdate/'.$list->id) }}" class="btn btn-dark btn-sm">Edit</a>
+                        <a href="{{ url('customeredit/'.$list->id) }}" class="btn btn-dark btn-sm">Edit</a>
                     </td>
                     <td>
                         <a href="{{ url('customerdelete/'.$list->id) }}" class="btn btn-danger btn-sm" 
