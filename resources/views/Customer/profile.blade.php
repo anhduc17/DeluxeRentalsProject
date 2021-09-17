@@ -10,14 +10,13 @@
     <div class="row">
         <div class="col-md-3 col-sm-3">
             <ul>
-                <li><a href="{{url('customerindex')}}">Profile Settings</a></li>
+                <li><a href="{{url('customerprofile')}}">Profile Settings</a></li>
                 <form method="POST">
                     @foreach($customerlist as $list)
-                    <li><a href="{{url('customerpassupdate/'.$list->CusID)}}">Update Password</a></li>
+                    <li><a href="{{url('customerpassupdate/'.$list->id)}}">Update Password</a></li>
                     @endforeach
                 </form>
-                <li><a href="">My Booking</a></li>
-                <li><a href="{{url('feedbackindex')}}">Feedback</a></li>
+                <li><a href="{{url('mybooking')}}">My Booking</a></li>
                 <li><a href="">Sign Out</a></li>
             </ul>
         </div>
@@ -27,28 +26,27 @@
                 <br><br>
                 <form method="POST">
                     @foreach($customerlist as $list)
-                    <div class="form-group">
-                        <label>Customer Name</label>
-                        <input type="text" class="form-control" name="txtcName" value="{{$list->CusName}}" readonly>
-                    </div>
-                    <div class="form-group">
-                        <label>Customer Day of Birth</label>
-                        <input type="text" class="form-control" name="txtcDOB" value="{{$list->CusDOB}}" readonly>
-                    </div>
-                    <div class="form-group">
-                        <label>Customer Address</label>
-                        <input type="text" class="form-control" name="txtcAdd" value="{{$list->CusAdd}}" readonly>
-                    </div>
-                    <div class="form-group">
-                        <label>Customer Phone Number</label>
-                        <input type="number" class="form-control" name="txtcPhone" value="{{$list->CusPhone}}" readonly>
-                    </div>
-                    <div class="form-group">
-                        <label>Customer Email</label>
-                        <input type="text" class="form-control" name="txtcMail" value="{{$list->CusMail}}" readonly>
-                    </div>
-
-                    <a href="{{url('customerupdate/'.$list->CusID)}}" class="btn btn-primary">Edit</a>
+                        <div class="form-group">
+                            <label>Customer Name</label>
+                            <input type="text" class="form-control" name="txtcName" value="{{$list->name}}" readonly>
+                        </div>
+                        <div class="form-group">
+                            <label>Customer Day of Birth</label>
+                            <input type="text" class="form-control" name="txtcDOB" value="{{$list->dob}}" readonly>
+                        </div>
+                        <div class="form-group">
+                            <label>Customer Address</label>
+                            <input type="text" class="form-control" name="txtcAdd" value="{{$list->address}}" readonly>
+                        </div>
+                        <div class="form-group">
+                            <label>Customer Phone Number</label>
+                            <input type="number" class="form-control" name="txtcPhone" value="{{$list->phone}}" readonly>
+                        </div>
+                        <div class="form-group">
+                            <label>Customer Email</label>
+                            <input type="text" class="form-control" name="txtcMail" value="{{$list->email}}" readonly>
+                        </div>
+                        <a href="{{url('customerupdate/'.$list->id)}}" class="btn btn-primary">Edit</a>
                     @endforeach
                     
                 </form>

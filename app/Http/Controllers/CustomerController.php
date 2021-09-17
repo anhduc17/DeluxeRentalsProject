@@ -3,71 +3,83 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Models\customer;
 use App\Models\User;
+use App\Models\contract;
+use App\Models\contract_detail;
+use Illuminate\Support\Facades\File;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Auth;
+use Hash;
 
 class CustomerController extends Controller
 {
     //READ
     public function customerindex(){
-        $customerlist = User::all();
+        $customerlist = user::all();
         return view ('customer.index',compact('customerlist'));
     }
 
+    
     //PROFILE
-        public function customerprofile(){
-            $customerlist = customer::all();
-            return view ('customer.profile',compact('customerlist'));
-        }
-
-    //CREATE
-    public function customercreate(){
-        return view ('customer.create');
-    }
-
-    public function customercreateprocess(Request $request){
-
-        $customer = new customer;
-        $customer->CusName = $request->input('txtcName');
-        $customer->CusDOB = $request->input('txtcDOB');
-        $customer->CusAdd = $request->input('txtcAdd');
-        $customer->CusMail = $request->input('txtcMail');
-        $customer->CusPass = $request->input('txtcPass');
-        $customer->CusPhone = $request->input('txtcPhone');
-        $customer->save();
-        
-        return redirect()->back()->with('success','Customer Account Successfully created');
+    public function customerprofile(){
+        $customerlist = user::where('id', Auth::id())->get();
+        return view ('customer.profile',compact('customerlist'));
     }
 
     //UPDATE
-    public function UpdateCustomer($cid){
-        $customerlist = customer::find($cid);
+    public function UpdateCustomer(){
+        $customerlist = user::find(Auth::id());
         return view('customer.update',compact('customerlist'));    
     }
 
-    public function UpdateCustomerProcess(Request $request, $cid){
-        $customerlist = customer::find($cid);
-        $customerlist->CusName = $request -> input('txtcName');
-        $customerlist->CusDOB = $request -> input('txtcDOB');
-        $customerlist->CusAdd = $request -> input('txtcAdd');
-        $customerlist->CusMail = $request -> input('txtcMail');
-        $customerlist->CusPhone = $request -> input('txtcPhone');
+    public function UpdateCustomerProcess(Request $request){
+        $customerlist = user::find(Auth::id());
+        $customerlist->name = $request -> input('txtcName');
+        $customerlist->dob = $request -> input('txtcDOB');
+        $customerlist->address = $request -> input('txtcAdd');
+        $customerlist->email = $request -> input('txtcMail');
+        $customerlist->phone = $request -> input('txtcPhone');
         $customerlist->update();
         
         return redirect()->back()->with('success','Customer Information updated successfully'); 
     }
 
     //UPDATE PASSWORD
-    public function UpdatePassword($cid){
-        $customerlist = customer::find($cid);
-        return view('customer.updatepass',compact('customerlist'));    
+    public function UpdatePassword($token) {
+
+        return view('auth.password.reset', ['token' => $token]);
+    }
+ 
+    public function UpdatePasswordProcess(Request $request)
+    {
+        $request->validate([
+             'email' => 'required|email|exists:users',
+             'password' => 'required|string|min:6|confirmed',
+             'password_confirmation' => 'required',
+         ]);
+ 
+        $updatePassword = DB::table('password_resets')
+                            ->where(['email' => $request->email, 'token' => $request->token])
+                            ->first();
+ 
+        if(!$updatePassword)
+            return back()->withInput()->with('error', 'Invalid token!');
+ 
+        $user = User::where('email', $request->email)
+                ->update(['password' => Hash::make($request->password)]);
+ 
+        DB::table('password_resets')->where(['email'=> $request->email])->delete();
+ 
+        return redirect('login')->with('message', 'Your password has been changed!');
+ 
     }
 
-    public function UpdatePasswordProcess(Request $request, $cid){
-        $customerlist = customer::find($cid);
-        $customerlist->CusPass = $request -> input('txtcPass');
-        $customerlist->update();
-
-        return redirect()->back()->with('success','Customer Password Updated Successfully'); 
+    //MY BOOKING
+    public function myBooking(){
+        $customerlist = user::where('id', Auth::id())->get();
+        $contract = contract::where('CusID',Auth::id())->get();
+        $contractno = contract::where('CusID',Auth::id())->value('ContractNo');
+        $detail = contract_detail::where('ContractNo',$contractno)->get();
+        return view ('customer.booking', array('contract' => $contract, 'detail' => $detail, 'customerlist' => $customerlist));
     }
 }

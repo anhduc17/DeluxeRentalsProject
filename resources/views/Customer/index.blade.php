@@ -26,9 +26,7 @@
                     <th>Address</th>
                     <th>Mail</th>
                     <th>Phone</th>
- 
                     <th colspan=2>Function</th>
-
                 </tr>
             </thead>    
             
@@ -42,8 +40,11 @@
                     <td>{{ $list -> email }}</td>
                     <td>{{ $list -> phone }}</td>
                     <td>
+                        <a href="{{ url('customerupdate/'.$list->id) }}" class="btn btn-dark btn-sm">Edit</a>
+                    </td>
+                    <td>
                         <a href="{{ url('customerdelete/'.$list->id) }}" class="btn btn-danger btn-sm" 
-                        onclick = "return confirm('Are you sure to delete data of {{$list->name}}? ')">Delete</a>
+                        onclick = "return confirm('Are you sure to delete data of customer? {{$list->id}}? ')">Delete</a>
                     </td>
                 </tr>
                 @endforeach

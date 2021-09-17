@@ -99,17 +99,15 @@ Route::get('customerindex','CustomerController@index');
 //----------------Customer CRUD---------------------------
 //01.READ - http://localhost:8080/DeluxeRentalsProject/public/customerindex
 Route::get('customerindex','CustomerController@customerindex');
-Route::get('myprofile','CustomerController@customerprofile');
-//02.CREATE - http://localhost:8080/DeluxeRentalsProject/public/customercreate
-Route::get('customercreate', 'CustomerController@customercreate');
-Route::post('customercreate','CustomerController@customercreateprocess');
-//03. UPDATE - http://localhost:8080/DeluxeRentalsProject/public/customerupdate/{cid}
-Route::get('customerupdate/{CusID}','CustomerController@UpdateCustomer');
-Route::post('customerupdate/{CusID}','CustomerController@UpdateCustomerProcess');
-//04. UPDATE PASSWORD - http://localhost:8080/DeluxeRentalsProject/public/customerpasswordupdate/{cid}
-Route::get('customerpassupdate/{CusID}','CustomerController@UpdatePassword');
-Route::post('customerpassupdate/{CusID}','CustomerController@UpdatePasswordProcess');
+Route::get('customerprofile','CustomerController@customerprofile');
+Route::get('mybooking','CustomerController@myBooking');
+//02. UPDATE - http://localhost:8080/DeluxeRentalsProject/public/customerupdate/{id}
+Route::get('customerupdate/{id}','CustomerController@UpdateCustomer');
+Route::post('customerupdate/{id}','CustomerController@UpdateCustomerProcess');
 
+//04. UPDATE PASSWORD - http://localhost:8080/DeluxeRentalsProject/public/customerpasswordupdate/{cid}
+Route::get('customerpassupdate/{id}','CustomerController@UpdatePassword');
+Route::post('customerpassupdate/{id}','CustomerController@UpdatePasswordProcess');
 
 
 //----------------Maintenance CRUD---------------------------

@@ -17,7 +17,7 @@
             <h1>List of feedbacks</h1>
         <h3><a href="{{ url('/feedbackcreate') }}">Add new feedback</a></h3>
         <table class="table table-bordered">
-            <thread class="thead-dark">
+            <thead class="thead-dark">
                 <tr>
                     <th>ID</th>
                     <th>Driver Attitude</th>
@@ -27,7 +27,7 @@
                     <th colspan=2>Function</th>
 
                 </tr>
-            </thread>    
+            </thead>    
             
             <tbody>
                 @foreach($feedbacklist as $list)
