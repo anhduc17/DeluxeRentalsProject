@@ -1,7 +1,6 @@
 @extends('layout.layout2')
 @section('title','Customer Account')
 @section('my content')
-
 <div class="container" style="margin-top: 100px; margin-bottom: 100px">
 
 
@@ -20,7 +19,13 @@
         </div>
         <div class="col-md-6 col-sm-8">
             <h1 style="text-align: center">My Booking:</h1>
-            <br><br>
+            <br>
+            <div >
+                @if(session('status'))
+                <h3 style="color:red">{{session('status')}}</h3>
+                @endif
+                </div>
+            <br>
             <table class="table table-bordered">
                     <thead class="thead-dark">
                         <tr style="text-align: center">
@@ -45,7 +50,7 @@
                                 <td>{{ $detaillist -> Departure }}</td>
                                 <td>{{ $detaillist -> Arrival }}</td>
                                 <td>
-                                    <a href="{{ url('feedbackupdate/'.$list->FeedbackID) }}" class="btn btn-primary btn-sm">Send Feedback</a>
+                                    <a href="{{url('feedbackcreate/'.$contractlist->ContractNo)}}" class="btn btn-primary btn-sm">Send Feedback</a>
                                 </td>
                             </tr>     
                             @endforeach

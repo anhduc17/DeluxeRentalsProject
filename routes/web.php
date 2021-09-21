@@ -132,12 +132,9 @@ Route::get('maintenancedelete/{id}','MaintenanceController@DeleteMaintenance');
 //01.READ - http://localhost:8080/DeluxeRentalsProject/public/feedbackindex
 Route::get('feedbackindex','FeedbackController@feedbackindex');
 //02.CREATE - http://localhost:8080/DeluxeRentalsProject/public/customercreate
-Route::get('feedbackcreate', 'FeedbackController@feedbackcreate');
-Route::post('feedbackcreate', 'FeedbackController@feedbackcreateprocess');
-//03. UPDATE - http://localhost:8080/DeluxeRentalsProject/public/customerupdate/{fid}
-Route::get('feedbackupdate/{fid}','FeedbackController@Updatefeedback');
-Route::post('feedbackupdate/{fid}', 'FeedbackController@Updatefeedbackprocess');
-//04. DELETE - http://localhost:8080/DeluxeRentalsProject/public/feedbackdelete/{fid}
+Route::get('feedbackcreate/{ContractNo}', 'FeedbackController@feedbackcreate');
+Route::post('feedbackcreate/{ContractNo}', 'FeedbackController@feedbackcreateprocess');
+//03. DELETE - http://localhost:8080/DeluxeRentalsProject/public/feedbackdelete/{fid}
 Route::get('feedbackdelete/{fid}', 'FeedbackController@DeleteFeedback');
 
 

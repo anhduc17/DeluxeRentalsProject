@@ -19,11 +19,13 @@
                 <thead class="thead-dark">
                     <tr style="text-align: center">
                         <th>ID</th>
+                        <th>Customer ID</th>
+                        <th>Contract Number</th>
                         <th>Driver Attitude</th>
                         <th>Driver Punctuality</th>
                         <th>Reasonable Price</th>
                         <th>More Comments</th>
-                        <th colspan=2>Function</th>
+                        <th>Function</th>
 
                     </tr>
                 </thead>    
@@ -31,14 +33,13 @@
                     @foreach($feedbacklist as $list)
                     <tr>
                         <td>{{ $list -> FeedbackID }}</td>
+                        <td>{{ $list -> Cus_ID }}</td>
+                        <td>{{ $list -> ContractNo }}</td>
                         <td>{{ $list -> DriverAttitude }}</td>
                         <td>{{ $list -> Punctuality }}</td>
                         <td>{{ $list -> ReasonalPrice }}</td>
                         <td>{{ $list -> Comment }}</td>
                         
-                        <td>
-                            <a href="{{ url('feedbackupdate/'.$list->FeedbackID) }}" class="btn btn-primary btn-sm">Edit</a>
-                        </td>
                         <td>
                             <a href="{{ url('feedbackdelete/'.$list->FeedbackID) }}" class="btn btn-danger btn-sm" onclick = "return confirm('Are you sure to delete car {{$list->CarPlate}}? ')">Delete</a>
                         </td>

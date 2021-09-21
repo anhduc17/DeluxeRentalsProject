@@ -71,32 +71,28 @@ class CustomerController extends Controller
     }
 
     //UPDATE PASSWORD
-    public function UpdatePassword($token) {
-
-        return view('auth.password.reset', ['token' => $token]);
+    public function UpdatePassword() {
+        $customerlist = user::find(Auth::id());
+        return view('customer.updatepass',compact('customerlist'));
     }
  
     public function UpdatePasswordProcess(Request $request)
     {
+        $customerlist = user::find(Auth::id());
         $request->validate([
-             'email' => 'required|email|exists:users',
-             'password' => 'required|string|min:6|confirmed',
-             'password_confirmation' => 'required',
-         ]);
+            'current_password' => 'required',
+            'password' => 'required|string|min:6|confirmed',
+            'password_confirmation' => 'required',
+        ]);
+        
+        $user = Auth::user();
+        if (!Hash::check($request->current_password, $user->password)) {
+            return back()->with('error', 'Current password does not match!');
+        }
+        $user->password = Hash::make($request->password);
+        $user->save();
  
-        $updatePassword = DB::table('password_resets')
-                            ->where(['email' => $request->email, 'token' => $request->token])
-                            ->first();
- 
-        if(!$updatePassword)
-            return back()->withInput()->with('error', 'Invalid token!');
- 
-        $user = User::where('email', $request->email)
-                ->update(['password' => Hash::make($request->password)]);
- 
-        DB::table('password_resets')->where(['email'=> $request->email])->delete();
- 
-        return redirect('login')->with('message', 'Your password has been changed!');
+        return back()->with('success', 'Your password has been changed!');
  
     }
 
